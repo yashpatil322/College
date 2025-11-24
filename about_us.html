@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - MMIT</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Top Navigation/Header (Mimicking your screenshot) */
+        .top-nav {
+            background-color: #fff;
+            padding: 10px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-bottom: 1px solid #eee;
+        }
+
+        .top-nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .top-nav-content .logo-text {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #007bff; /* Example color, adjust as needed */
+            margin-right: auto; /* Pushes other items to the right */
+        }
+
+        .top-nav-content .breadcrumb a {
+            color: #555;
+            text-decoration: none;
+            font-size: 0.9em;
+            margin-left: 10px;
+        }
+
+        .top-nav-content .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .top-nav-content .breadcrumb span {
+            color: #999;
+            font-size: 0.9em;
+            margin-left: 5px;
+        }
+
+
+        /* Main Page Title */
+        .page-title-banner {
+            background-color: #f0f0f0; /* Light grey background */
+            padding: 40px 0;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+        .page-title-banner h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+
+        /* Main Content Area */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap; /* Allows items to wrap on smaller screens */
+            gap: 40px; /* Space between flex items */
+        }
+
+        .image-gallery {
+            flex: 1; /* Takes available space */
+            min-width: 300px; /* Ensures it doesn't get too small */
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .image-gallery img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            object-fit: cover; /* Ensures images cover their area well */
+        }
+
+        .content-area {
+            flex: 2; /* Takes more space than the image gallery */
+            min-width: 400px; /* Ensures it doesn't get too small */
+        }
+
+        .content-area h2 {
+            color: #0056b3; /* A blue that stands out */
+            font-size: 1.8em;
+            margin-top: 0;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .content-area p {
+            margin-bottom: 1em;
+            font-size: 1.05em;
+            color: #555;
+            text-align: justify;
+        }
+
+        .content-area strong {
+            color: #333;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column; /* Stack items vertically on small screens */
+                gap: 20px;
+            }
+            .image-gallery, .content-area {
+                min-width: unset; /* Remove min-width to allow full width */
+                width: 100%;
+            }
+            .page-title-banner h1 {
+                font-size: 2em;
+            }
+            .top-nav-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .top-nav-content .breadcrumb {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-nav">
+        <div class="top-nav-content">
+            <div class="logo-text">About Us</div>
+            <div class="breadcrumb">
+                <a href="#">Home</a>
+                <span>&gt;</span>
+                <a href="#">About Us</a>
+                <span>&gt;</span>
+                <span>About MMIT</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-title-banner">
+        <h1>ABOUT MMIT</h1>
+    </div>
+
+    <div class="container">
+        <div class="image-gallery">
+            <img src="path/to/your/first-building-image.jpg" alt="MMIT Campus View 1">
+            <img src="path/to/your/second-building-image.jpg" alt="MMIT Campus View 2">
+        </div>
+
+        <div class="content-area">
+            <h2>About The Institution</h2>
+            <p>The Marathwada Mitramandal’s Institute of Technology, Lohgaon was established in <strong>2008</strong>. The Institution is affiliated to Savitribai Phule Pune University, Pune and is approved by AICTE, New Delhi, recognized by DTE, Government of Maharashtra. The Institute is accredited with <strong>“A” Grade by NAAC</strong>.</p>
+
+            <p>At the Institution, efforts are directed to accommodate and address expectations of every student in line with the vision of the trust of imparting quality education for professional excellence and holistic development through continual improvement and team work.</p>
+
+            <h2>The Institution’s Location</h2>
+            <p>The Institution is located in the vicinity of the North-East of the Pune city (Maharashtra state) at latitude and longitude of <strong>18.690</strong> and <strong>73.940</strong> respectively. It is located at a distance of <strong>7 kms from Pune Lohgaon Airport</strong>, <strong>14 kms from Pune Railway Station</strong> and <strong>17 kms from Central Bus Stand (Shivaji Nagar)</strong>. The postal address of the institution is – Survey No. 35, Plot no. 5/76, Vadgaon Shinde Road, Lohgaon, Pune – 411047.</p>
+        </div>
+    </div>
+
+</body>
+</html>
