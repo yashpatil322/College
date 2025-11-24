@@ -1,83 +1,253 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ICSFT - 2026 | International Conference</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>IEEE Conference - International Conference on Sustainable and Futuristic Technology-2026</title>
+    
+    <style>
+        /* Base Reset and Body Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7; /* Light background for the content area */
+            color: #333;
+        }
+
+        /* ----------------------- Header/Navigation Bar ----------------------- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 40px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative; /* To align with the screenshot's top bar */
+            z-index: 10;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-section .logo {
+            height: 40px; /* Placeholder size for logos */
+            margin-right: 15px;
+        }
+
+        .nav-links a {
+            margin-left: 15px;
+            text-decoration: none;
+            color: #007bff; /* Standard link/IEEE-related color */
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #0056b3;
+        }
+
+        /* ----------------------- Hero/Banner Section ----------------------- */
+.hero {
+    /* Only the image, no gradient or color */
+    background-image: url('/conference_ieee_image.png');
+    
+    /* Settings to make the image look good */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    /* Layout styles (kept from your original code) */
+    color: #fff;
+    text-align: center;
+    padding: 100px 20px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+
+        .date-extension {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-weight: 300;
+        }
+
+        .conference-logo {
+            width: 100px;
+            height: 100px;
+            border: 5px solid #fff;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            background-color: #0056b3; /* Placeholder for the circular emblem's color */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(0, 123, 255, 0.7); /* Glow effect */
+        }
+
+        .hero h3 {
+            font-size: 1.2em;
+            margin: 0 0 5px;
+            color: #ccc;
+            letter-spacing: 5px;
+            font-weight: 300;
+        }
+        
+        .hero h2 {
+            font-size: 2.2em;
+            margin: 5px 0 15px;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            margin: 5px 0 20px;
+            font-size: 1.1em;
+            color: #aaa;
+        }
+        
+        .theme {
+            font-size: 1.2em;
+            margin-top: 30px;
+            padding: 8px 20px;
+            border: 1px solid #fff;
+            display: inline-block;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+        
+        .dates {
+            font-size: 1.4em;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #ffcc00; /* Yellowish color for visibility */
+        }
+
+
+        /* ----------------------- Content/About Section ----------------------- */
+        .content-section {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 0 20px;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        .content-section p {
+            margin-bottom: 25px;
+            font-size: 15px;
+        }
+        
+        .content-section strong {
+            color: #007bff; /* Highlighting keywords */
+        }
+        
+        /* ----------------------- Footer/Partners Section ----------------------- */
+        .partners-section {
+            text-align: center;
+            padding: 50px 20px 80px;
+            background-color: #fff;
+            border-top: 1px solid #ddd;
+        }
+
+        .partners-section h3 {
+            font-size: 1.5em;
+            color: #007bff;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        .partner-logo img {
+            width: 180px; /* Placeholder size for partner logo */
+            height: auto;
+        }
+    </style>
 </head>
 <body>
 
-    <div class="top-bar">
-        Paper Submission Date is extended till 30th November, 2025
-    </div>
-
-    <nav class="navbar" id="navbar">
-        <div class="logo-container">
-            <img src="https://via.placeholder.com/150x50?text=College+Logo" alt="College Logo" class="logo">
-            <img src="https://via.placeholder.com/100x50?text=IEEE+Pune" alt="IEEE Pune" class="logo">
-            <img src="https://via.placeholder.com/80x50?text=IEEE" alt="IEEE" class="logo">
-        </div>
-        <ul class="nav-links">
-            <li><a href="#" class="active">Home</a></li>
-            <li><a href="#">Details</a></li>
-            <li><a href="#">Committee</a></li>
-            <li><a href="#">Call For Papers</a></li>
-            <li><a href="#">Registration</a></li>
-            <li><a href="#">Sponsor</a></li>
-            <li><a href="#">Contact Us</a></li>
-        </ul>
-    </nav>
-
-    <header class="hero-section">
-        <div class="hero-overlay">
-            <div class="hero-content">
-                <div class="conf-badge">
-                    <img src="https://via.placeholder.com/100?text=Logo" alt="Conference Icon">
-                </div>
-
-                <h1>INTERNATIONAL<br>CONFERENCE</h1>
-                
-                <h2 class="sub-heading">
-                    2<sup>nd</sup> International Conference on<br>
-                    Sustainable and Futuristic Technology-2026<br>
-                    (ICSFT - 2026)
-                </h2>
-
-                <p class="sponsor-text">Technically Co-sponsored by IEEE, Pune Section</p>
-
-                <div class="theme-box">
-                    Theme: AI Integration for Sustainable Development
-                </div>
-
-                <div class="date-box">
-                    24<sup>th</sup> – 25<sup>th</sup> April 2026
-                </div>
+    <header class="header">
+        <div class="logo-section">
+            <img class="logo" src="path/to/ieee_logo.png" alt="IEEE Logo">
+            <img class="logo" src="path/to/college_logo.png" alt="College of Engineering Logo">
             </div>
-        </div>
+        <nav class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#proceedings">Proceedings/Rentals</a>
+            <a href="#committee">Committee</a>
+            <a href="#call-for-papers">Call for Papers</a>
+            <a href="#registration">Registration</a>
+            <a href="#sponsors">Sponsors</a>
+            <a href="#contact">Contact Us</a>
+        </nav>
     </header>
 
-    <section class="content-section">
-        <div class="container">
-            <p>
-                International conference on Sustainable and Futuristic Technologies 2026 (ICSFT-2026) with the theme of "AI Integration for Sustainable Development". The conference will provide a platform for researchers, practitioners, and industry experts to discuss the latest advancements, challenges, and opportunities in integrating AI into different disciplines for betterment of livelihood.
-            </p>
-            <p>
-                The conference will invite researchers, industrialists, under graduates and post graduates to publish original, innovative and quality research work.
-            </p>
-            <p>
-                The Conference also includes keynote sessions and poster presentations in multidisciplinary areas by expert academicians, industry persons and professionals.
-            </p>
-            <p>
-                Accepted papers will be submitted for inclusion into IEEE Xplore subject to meeting IEEE Xplore's scope and quality requirements.
-            </p>
-            <p>
-                The conference will invite papers in five tracks involving Computer Science, Information Technology, Artificial Intelligence and Data Science, Electronics & Telecommunication, Electrical, Mechanical engineering and Management domains.
-            </p>
+    <main class="hero">
+        <div class="date-extension">Paper Submission Date is extended till **15th November, 2025**</div>
+        
+        <div class="conference-logo">
+            ICSFT 2026
         </div>
+        
+        <h3>INTERNATIONAL CONFERENCE</h3>
+        <h2>2<sup>nd</sup> International Conference on <br> **Sustainable and Futuristic Technology-2026** <br> (ICSFT-2026)</h2>
+        <p>Technically Co-sponsored by IEEE, Pune Section</p>
+        
+        <div class="theme">Theme: **AI Integration for Sustainable Development**</div>
+        
+        <div class="dates">24<sup>th</sup> - 26<sup>th</sup> April, 2026</div>
+    </main>
+
+    <section class="content-section" id="about">
+        <p>International Conference on Sustainable and Futuristic Technology (ICSFT-2026) will run with the theme of "AI Integration for Sustainable Development." The conference will provide a platform for researchers, practitioners, and industry experts to discuss the latest advancements, challenges, and opportunities in integrating AI into sustainable and futuristic technological systems.</p>
+        <p>The Conference will invite **Researchers**, **Industrialists**, **Active Graduates** and **Post Graduates** to publish their work and present their research papers.</p>
+        <p>The Conference will include keynote sessions and parallel presentations by multidisciplinary experts to impart knowledge of the latest research to the participants.</p>
+        <p>Accepted papers will be submitted for inclusion in the IEEE Xplore, subject to meeting IEEE Xplore scope and quality requirements.</p>
+        <p>The conference will accept papers in the area (including) Computer Science, Information Technology, Artificial Intelligence and Data Science, Electronics & Telecommunication, Electrical, Mechanical Engineering, and Management Sciences.</p>
     </section>
 
-    <script src="script.js"></script>
+    <footer class="partners-section">
+        <h3>ACADEMIC PARTNERS</h3>
+        <div class="partner-logo">
+            <img src="path/to/pavar_university_logo.png" alt="Pavar University Logo">
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript is primarily used for dynamic interactions (like navigation effects, form validation, animations).
+        // Since the screenshot shows no complex dynamic features, this is a minimal placeholder.
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Function to change the header background on scroll (a common feature)
+            const header = document.querySelector('.header');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+                    header.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.15)';
+                } else {
+                    header.style.backgroundColor = '#fff';
+                    header.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.1)';
+                }
+            });
+
+            console.log("International Conference on Sustainable and Futuristic Technology-2026 page loaded successfully.");
+        });
+    </script>
+
 </body>
 </html>
