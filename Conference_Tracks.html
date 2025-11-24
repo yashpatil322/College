@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conference Tracks</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 960px; /* Adjusted to fit content width */
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        h1 {
+            color: #8B0000; /* Dark Red, matching the screenshot's title color */
+            font-size: 2em;
+            margin-top: 0;
+            margin-bottom: 30px;
+            font-weight: bold;
+            border-bottom: 2px solid #eee; /* Light separator line */
+            padding-bottom: 10px;
+        }
+
+        .track-category {
+            margin-bottom: 40px;
+        }
+
+        .track-category h2 {
+            color: #333;
+            font-size: 1.4em;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-weight: bold;
+            padding-left: 20px; /* Indent for the numbered heading */
+            position: relative;
+        }
+
+        .track-category h2::before {
+            content: ''; /* Placeholder for the red triangle bullet */
+            position: absolute;
+            left: 0;
+            top: 0.4em; /* Adjust to vertically align with text */
+            width: 0;
+            height: 0;
+            border-top: 6px solid transparent;
+            border-bottom: 6px solid transparent;
+            border-left: 8px solid #8B0000; /* Dark Red triangle */
+        }
+
+        .track-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Two columns, responsive */
+            gap: 15px; /* Space between track items */
+        }
+
+        .track-item {
+            background-color: #f0f0f0; /* Light grey background for each item */
+            padding: 15px 20px;
+            border-radius: 5px;
+            font-size: 1em;
+            color: #555;
+            font-weight: 500;
+            text-align: left;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .track-item:hover {
+            background-color: #e0e0e0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Adjust grid for smaller screens */
+        @media (max-width: 768px) {
+            .track-items {
+                grid-template-columns: 1fr; /* Single column on small screens */
+            }
+            .container {
+                margin: 20px auto;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Conference Tracks</h1>
+
+        <div class="track-category">
+            <h2>1. Computer Science and Engineering:</h2>
+            <div class="track-items">
+                <div class="track-item">Advanced Algorithms and Data Structures</div>
+                <div class="track-item">Cloud Computing and Edge Computing</div>
+                <div class="track-item">Cybersecurity and Cryptography</div>
+                <div class="track-item">Big Data Analytics and Data Science</div>
+                <div class="track-item">Human-Computer Interaction</div>
+                <div class="track-item">Software Engineering and Development</div>
+            </div>
+        </div>
+
+        <div class="track-category">
+            <h2>2. Mechatronics:</h2>
+            <div class="track-items">
+                <div class="track-item">Intelligent Mechatronic Systems</div>
+                <div class="track-item">Sensors, Actuators, and Embedded Systems</div>
+                <div class="track-item">Control Systems and Automation</div>
+                <div class="track-item">Real-Time Systems and Applications</div>
+                <div class="track-item">Microelectromechanical Systems (MEMS)</div>
+                <div class="track-item">Robotics-integrated Mechatronics</div>
+            </div>
+        </div>
+
+        <div class="track-category">
+            <h2>3. Robotics:</h2>
+            <div class="track-items">
+                <div class="track-item">Autonomous and Mobile Robotics</div>
+                <div class="track-item">Swarm Robotics and Multi-Agent Systems</div>
+                <div class="track-item">Robot Vision and Perception</div>
+                <div class="track-item">Humanoid Robots and Social Robotics</div>
+                <div class="track-item">Industrial and Service Robotics</div>
+                <div class="track-item">Robotics in Healthcare and Rehabilitation</div>
+            </div>
+        </div>
+
+        <div class="track-category">
+            <h2>4. Artificial Intelligence (AI):</h2>
+            <div class="track-items">
+                <div class="track-item">Machine Learning and Deep Learning</div>
+                <div class="track-item">Natural Language Processing (NLP)</div>
+                <div class="track-item">Computer Vision and Image Processing</div>
+                <div class="track-item">AI in IoT and Smart Devices</div>
+                <div class="track-item">Reinforcement Learning and AI-driven Control</div>
+                <div class="track-item">Ethical and Explainable AI</div>
+            </div>
+        </div>
+
+        <div class="track-category">
+            <h2>5. Interdisciplinary and Emerging Areas:</h2>
+            <div class="track-items">
+                <div class="track-item">Cyber-Physical Systems</div>
+                <div class="track-item">Smart Cities and Intelligent Transportation Systems</div>
+                <div class="track-item">AI and Robotics in Industry 5.0</div>
+                <div class="track-item">Bio-Inspired Computing and Soft Robotics</div>
+                <div class="track-item">Virtual Reality (VR), Augmented Reality (AR), and Mixed Reality (MR)</div>
+                <div class="track-item">Sustainable and Green Technologies</div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
