@@ -3,22 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ICCMRAI 2026 | IEEE International Conference</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <title>ICCMRAI 2026 | International Conference</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
     <style>
-        /* ----------------------- VARIABLES ----------------------- */
+        /* =========================================
+           1. CORE VARIABLES & RESET
+           ========================================= */
         :root {
-            --primary-color: #a52a2a; /* Brown */
+            --primary-color: #a52a2a; /* Brand Brown */
+            --primary-dark: #7a1e1e;
             --secondary-color: #0056b3; /* IEEE Blue */
             --accent-color: #ffcc00; /* Yellow */
-            --text-dark: #333;
-            --text-light: #f7f7f7;
-            --bg-light: #f4f6f9;
+            --text-dark: #1a202c;
+            --text-gray: #4a5568;
+            --bg-light: #f7fafc;
+            --white: #ffffff;
             --header-height: 80px;
+            --radius: 16px;
+            --shadow-card: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
         }
 
-        /* ----------------------- RESET & BASE ----------------------- */
         * { box-sizing: border-box; }
 
         body {
@@ -27,29 +35,34 @@
             padding: 0;
             background-color: var(--bg-light);
             color: var(--text-dark);
-            overflow-x: hidden; /* Prevent horizontal scroll on mobile */
+            overflow-x: hidden;
         }
 
-        /* ----------------------- RESPONSIVE HEADER ----------------------- */
+        /* Smooth Scroll */
+        html { scroll-behavior: smooth; }
+
+        /* =========================================
+           2. NAVBAR (Consistent with About Page)
+           ========================================= */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 5%; /* Percentage padding for responsiveness */
+            padding: 0 5%;
             height: var(--header-height);
             background-color: var(--primary-color);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         .header.scrolled {
             background-color: rgba(165, 42, 42, 0.95);
-            backdrop-filter: blur(5px);
-            height: 70px; /* Slight shrink on scroll */
+            backdrop-filter: blur(10px);
+            height: 70px;
         }
 
         .logo-section {
@@ -58,30 +71,24 @@
             gap: 15px;
             background: rgba(255,255,255,0.95);
             padding: 5px 15px;
-            border-radius: 4px;
+            border-radius: 50px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
-        .logo-section .logo {
-            height: 45px;
-            width: auto;
-            object-fit: contain;
-        }
+        .logo-section .logo { height: 40px; width: auto; object-fit: contain; }
 
-        /* Desktop Navigation */
-        .nav-links {
-            display: flex;
-            gap: 25px;
-        }
+        .nav-links { display: flex; gap: 25px; }
 
         .nav-links a {
             text-decoration: none;
-            color: var(--text-light);
+            color: var(--white);
             font-weight: 500;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             position: relative;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             padding: 5px 0;
+            transition: color 0.3s;
         }
 
         .nav-links a::after {
@@ -89,238 +96,295 @@
             position: absolute;
             width: 0;
             height: 2px;
-            bottom: 0;
+            bottom: -2px;
             left: 0;
             background-color: var(--accent-color);
             transition: width 0.3s;
         }
 
-        .nav-links a:hover::after { width: 100%; }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
 
-        /* Hamburger Menu Icon (Hidden on Desktop) */
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            gap: 5px;
-        }
+        /* Hamburger Menu */
+        .menu-toggle { display: none; flex-direction: column; cursor: pointer; gap: 6px; }
+        .menu-toggle span { width: 28px; height: 3px; background-color: #fff; transition: 0.3s; border-radius: 2px; }
 
-        .menu-toggle span {
-            width: 25px;
-            height: 3px;
-            background-color: #fff;
-            transition: 0.3s;
-            border-radius: 2px;
-        }
-
-        /* ----------------------- HERO SECTION ----------------------- */
-        .hero {
-            background-image: url('conference_ieee_image.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: scroll; /* Changed from fixed for better mobile support */
-            
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: #fff;
-            position: relative;
-            padding: calc(var(--header-height) + 20px) 20px 20px;
-        }
-
-        /* Extended Date Badge */
-        .date-extension {
-            position: absolute;
-            top: 100px;
-            right: 20px;
-            background: rgba(200, 0, 0, 0.9);
-            color: white;
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            z-index: 5;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            white-space: nowrap;
-        }
-
-        .hero-content {
-            background: rgba(0, 0, 0, 0.65);
-            backdrop-filter: blur(4px);
-            padding: 40px;
-            border-radius: 15px;
-            border: 1px solid rgba(255,255,255,0.2);
-            width: 100%;
-            max-width: 900px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-            margin-top: 20px;
-        }
-
-        /* Responsive Typography using clamp */
-        .hero h1 {
-            font-size: clamp(1.8rem, 5vw, 3rem); /* Scales between 1.8rem and 3rem */
-            font-weight: 700;
-            margin: 15px 0;
-            line-height: 1.2;
-        }
-
-        .hero h3 {
-            font-size: clamp(0.8rem, 2vw, 1rem);
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-bottom: 5px;
-        }
-
-        .theme-box {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            border: 2px solid var(--accent-color);
-            color: var(--accent-color);
-            font-weight: 600;
-            font-size: clamp(0.9rem, 3vw, 1.1rem);
-        }
-
-        .dates {
-            margin-top: 20px;
-            font-size: clamp(1.4rem, 4vw, 1.8rem);
-            font-weight: 700;
-            color: #fff;
-        }
-
-        /* ----------------------- CONTENT SECTION ----------------------- */
-        .content-section {
-            max-width: 1000px;
-            margin: -40px auto 40px; 
-            background: #fff;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            position: relative;
-            z-index: 10;
-            width: 90%; /* Responsive width */
-        }
-
-        /* Highlight Grid */
-        .highlight-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            margin-top: 40px;
-        }
-
-        .highlight-card {
-            background: #fff;
-            border-left: 5px solid var(--primary-color);
-            padding: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            transition: transform 0.3s;
-        }
-
-        .highlight-card p {
-            margin: 0;
-            font-weight: 600;
-            color: #222;
-            font-size: 1.1rem;
-        }
-
-        /* ----------------------- FOOTER ----------------------- */
-        .partners-section {
-            text-align: center;
-            padding: 40px 20px;
-            background-color: #fff;
-            border-top: 1px solid #eaeaea;
-        }
-
-        .partner-logo img {
-            max-width: 100%;
-            height: auto;
-            width: 200px;
-        }
-
-        /* ----------------------- MEDIA QUERIES (THE MAGIC) ----------------------- */
-        
         @media (max-width: 868px) {
-            /* Mobile Navigation */
-            .menu-toggle {
-                display: flex;
-                z-index: 1001;
-            }
-
+            .menu-toggle { display: flex; z-index: 1001; }
             .nav-links {
                 position: fixed;
-                top: 0;
-                right: -100%; /* Hidden by default */
-                height: 100vh;
-                width: 70%; /* Side drawer width */
-                background-color: #8a2323; /* Slightly darker brown */
+                top: 0; right: -100%;
+                height: 100vh; width: 75%;
+                background: linear-gradient(135deg, var(--primary-color), #5a1515);
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                transition: right 0.4s ease;
-                box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+                transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+                box-shadow: -10px 0 30px rgba(0,0,0,0.3);
             }
-
-            .nav-links.active {
-                right: 0; /* Slide in */
-            }
-
-            .nav-links a {
-                font-size: 1.2rem;
-                margin: 15px 0;
-            }
-
-            /* Logo adjustments for tablets/mobile */
-            .logo-section .logo {
-                height: 35px;
-            }
-
-            /* Adjust Date Badge position for mobile */
-            .date-extension {
-                position: relative;
-                top: 0;
-                right: 0;
-                display: inline-block;
-                margin-bottom: 20px;
-                animation: none; /* Remove float animation on mobile to save battery/performance */
-            }
-
-            .content-section {
-                padding: 25px;
-                margin-top: -20px;
-                width: 95%;
-            }
-
-            .hero-content {
-                padding: 25px;
-            }
+            .nav-links.active { right: 0; }
+            .nav-links a { font-size: 1.2rem; margin: 15px 0; }
         }
 
-        @media (max-width: 480px) {
-            /* Small Phones */
-            .logo-section {
-                padding: 5px;
-            }
-            .logo-section .logo {
-                height: 28px; /* Smaller logo */
-            }
+        /* =========================================
+           3. CINEMATIC HERO SECTION
+           ========================================= */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Parallax Background */
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('conference_ieee_image.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Creates Parallax */
+            padding: 100px 20px 50px;
+            text-align: center;
+        }
+
+        /* Pulsing Alert Badge */
+        .alert-badge {
+            position: absolute;
+            top: 100px;
+            right: 30px;
+            background: rgba(220, 38, 38, 0.9);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
+            animation: pulse 2s infinite;
+            z-index: 10;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(220, 38, 38, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+        }
+
+        /* Glassmorphism Card for Hero Text */
+        .hero-glass-card {
+            background: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+            backdrop-filter: blur(12px); /* Blur effect behind */
+            -webkit-backdrop-filter: blur(12px);
+            padding: 50px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            max-width: 900px;
+            width: 100%;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transform: translateY(30px);
+            opacity: 0;
+            animation: slideUpFade 1s ease-out forwards 0.3s;
+        }
+
+        .conf-badge {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: clamp(1.8rem, 5vw, 3.2rem);
+            font-weight: 800;
+            margin: 10px 0 20px;
+            line-height: 1.1;
+            color: #fff;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(0.9rem, 2vw, 1.2rem);
+            color: #e2e8f0;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .theme-pill {
+            display: inline-block;
+            margin: 20px 0;
+            padding: 10px 25px;
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-radius: 4px;
+            background: rgba(0,0,0,0.2);
+        }
+
+        .hero-date {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #fff;
+            margin-top: 20px;
+            display: block;
+        }
+
+        /* =========================================
+           4. CONTENT SECTION (Animate on Scroll)
+           ========================================= */
+        .content-section {
+            max-width: 1200px;
+            margin: -50px auto 50px; /* Overlap Hero */
+            background: var(--white);
+            padding: 60px 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-card);
+            position: relative;
+            z-index: 20;
+            opacity: 0; /* Hidden initially */
+            transform: translateY(40px);
+            transition: all 0.8s ease-out;
+        }
+
+        /* Class added by JS for animation */
+        .content-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-header {
+            margin-bottom: 30px;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-header h2::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 4px;
+            background: var(--accent-color);
+            margin-top: 5px;
+            border-radius: 2px;
+        }
+
+        .text-justify {
+            text-align: justify;
+            line-height: 1.8;
+            color: var(--text-gray);
+            font-size: 1.05rem;
+            margin-bottom: 20px;
+        }
+
+        /* =========================================
+           5. INFO CARDS GRID (Modern Highlights)
+           ========================================= */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            margin-top: 50px;
+        }
+
+        .info-card {
+            background: #fff;
+            padding: 30px 20px;
+            border-radius: var(--radius);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--primary-color);
+        }
+
+        .info-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .card-desc {
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            font-weight: 500;
+        }
+
+        .deadline-card .card-icon { color: #dc2626; }
+        .deadline-card::before { background: #dc2626; }
+
+        /* =========================================
+           6. FOOTER
+           ========================================= */
+        .footer {
+            text-align: center;
+            padding: 60px 20px;
+            background: #fff;
+            border-top: 1px solid #eaeaea;
+        }
+
+        .footer h3 {
+            color: var(--secondary-color);
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+        }
+
+        /* Animation Keyframes */
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .hero-glass-card { padding: 30px 20px; }
+            .content-section { margin: -30px 20px 30px; padding: 30px 20px; }
             
-            .header {
-                padding: 0 15px;
-            }
-
-            .hero h1 {
-                font-size: 1.6rem; 
-            }
-
-            .highlight-grid {
-                grid-template-columns: 1fr; /* Stack cards vertically */
+            /* Move alert badge nicely on mobile */
+            .alert-badge {
+                position: relative;
+                top: 0; right: 0; left: 0;
+                margin: 0 auto 20px;
+                display: inline-flex;
+                justify-content: center;
+                width: auto;
             }
         }
+
     </style>
 </head>
 <body>
@@ -338,7 +402,7 @@
         </div>
 
         <nav class="nav-links" id="nav-links">
-            <a href="#home" onclick="closeMenu()">Home</a>
+            <a href="index.html" class="active" onclick="closeMenu()">Home</a>
             <a href="about_us.html" onclick="closeMenu()">About</a>
             <a href="call_for_Papers.html" onclick="closeMenu()">Papers</a>
             <a href="conference_Tracks.html" onclick="closeMenu()">Tracks</a>
@@ -350,14 +414,15 @@
 
     <main class="hero" id="home">
         
-        <div class="date-extension">
-            ⚠️ Extended: <b>15th Nov 2025</b>
-        </div>
-        
-        <div class="hero-content">
-            <div style="background:var(--secondary-color); display:inline-block; padding:4px 12px; border-radius:15px; font-size:0.8rem; margin-bottom:10px;">ICSFT 2026</div>
+        <div class="hero-glass-card">
+            <div class="alert-badge">
+                <i class="fas fa-bell"></i> 
+                Extended: 15th Nov 2025
+            </div>
+
+            <div class="conf-badge">ICSFT 2026</div>
             
-            <h3>International Conference</h3>
+            <div class="hero-subtitle">International Conference</div>
             
             <h1>
                 Computer, Mechatronics, Robotics<br>
@@ -365,73 +430,111 @@
                 (ICCMRAI - 2026)
             </h1>
             
-            <div class="theme-box">
+            <div class="theme-pill">
                 Theme: AI Integration for Sustainable Development
             </div>
             
-            <div class="dates">
+            <div class="hero-date">
+                <i class="far fa-calendar-alt" style="margin-right:10px;"></i>
                 15<sup>th</sup> - 16<sup>th</sup> July, 2026
             </div>
         </div>
     </main>
 
-    <section class="content-section" id="about">
-        <p>
-            <strong>Marathwada Mitramandal’s Institute of Technology</strong> is affiliated to Savitribai Phule Pune University. We are organizing the IEEE International Conference on Computer, Mechatronics, Robotics & Artificial Intelligence (ICCMRAI) - 2026 to provide an international open forum for educators and engineers.
+    <section class="content-section" id="about-section">
+        
+        <div class="section-header">
+            <h2>Welcome to ICCMRAI 2026</h2>
+        </div>
+
+        <p class="text-justify">
+            <strong>Marathwada Mitramandal’s Institute of Technology</strong> is affiliated to Savitribai Phule Pune University. We are proud to organize the IEEE International Conference on Computer, Mechatronics, Robotics & Artificial Intelligence (ICCMRAI) - 2026. This conference provides an international open forum for educators, engineers, and researchers to disseminate their latest research work and exchange views on future research directions.
         </p>
-        <p>
-            This conference will serve as a premier platform for researchers, academicians, and industry experts to discuss the latest advancements in Computer, Mechatronics, Robotics & Artificial Intelligence.
+        <p class="text-justify">
+            The event aims to foster collaboration, knowledge sharing, and provide insight into the challenges and opportunities in this rapidly evolving field.
         </p>
         
-        <div class="highlight-grid">
-            <div class="highlight-card">
-                <h4>Publication</h4>
-                <p>IEEE Xplore</p>
+        <div class="info-grid">
+            
+            <div class="info-card">
+                <i class="fas fa-book-reader card-icon"></i>
+                <div class="card-title">Publication</div>
+                <div class="card-desc">IEEE Xplore</div>
             </div>
-            <div class="highlight-card">
-                <h4>Mode</h4>
-                <p>Hybrid Mode</p>
+
+            <div class="info-card">
+                <i class="fas fa-globe card-icon"></i>
+                <div class="card-title">Mode</div>
+                <div class="card-desc">Hybrid (Virtual + Physical)</div>
             </div>
-            <div class="highlight-card">
-                <h4>Location</h4>
-                <p>Pune, India</p>
+
+            <div class="info-card">
+                <i class="fas fa-map-marker-alt card-icon"></i>
+                <div class="card-title">Location</div>
+                <div class="card-desc">Pune, India</div>
             </div>
-            <div class="highlight-card" style="border-left-color: red;">
-                <h4>Deadline</h4>
-                <p>05th Dec 2025</p>
+
+            <div class="info-card deadline-card">
+                <i class="fas fa-hourglass-half card-icon"></i>
+                <div class="card-title" style="color:#dc2626;">Paper Deadline</div>
+                <div class="card-desc">05th Dec 2025</div>
             </div>
+
         </div>
+
     </section>
 
-    <footer class="partners-section">
+    <footer class="footer">
         <h3>ACADEMIC PARTNERS</h3>
         <div class="partner-logo">
-            <img src="pavar_university_logo.png" alt="University Logo">
+            <img src="pavar_university_logo.png" alt="Pavar University" style="max-width: 200px; filter: grayscale(100%); transition: 0.3s; opacity: 0.7;">
         </div>
     </footer>
 
     <script>
-        // 1. Navbar Scroll Effect
+        // Navbar Scroll Effect
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
         });
 
-        // 2. Mobile Menu Toggle Logic
+        // Mobile Menu Logic
         const menuToggle = document.getElementById('mobile-menu');
         const navLinks = document.getElementById('nav-links');
-
+        
         menuToggle.addEventListener('click', () => {
             navLinks.classList.toggle('active');
         });
 
-        // 3. Close menu when a link is clicked
         function closeMenu() {
             navLinks.classList.remove('active');
+        }
+
+        // Scroll Animation (Intersection Observer)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // Optional: Stop observing once visible to prevent re-animation
+                    // observer.unobserve(entry.target); 
+                }
+            });
+        }, { threshold: 0.1 }); // Trigger when 10% is visible
+
+        const aboutSection = document.getElementById('about-section');
+        if(aboutSection) observer.observe(aboutSection);
+
+        // Partner Logo Hover Effect (JS fallback if CSS fails, or simple logic)
+        const partnerLogo = document.querySelector('.partner-logo img');
+        if(partnerLogo) {
+            partnerLogo.addEventListener('mouseover', () => {
+                partnerLogo.style.filter = 'grayscale(0%)';
+                partnerLogo.style.opacity = '1';
+            });
+            partnerLogo.addEventListener('mouseout', () => {
+                partnerLogo.style.filter = 'grayscale(100%)';
+                partnerLogo.style.opacity = '0.7';
+            });
         }
     </script>
 

@@ -3,178 +3,474 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Organization Committee</title>
+    <title>Organization Committee - ICCMRAI 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
     <style>
+        /* =========================================
+           1. CORE VARIABLES
+           ========================================= */
+        :root {
+            --primary-color: #a52a2a; /* Brown */
+            --primary-light: #fdf2f2;
+            --secondary-color: #0056b3; /* Blue */
+            --accent-color: #ffcc00; /* Yellow */
+            --text-dark: #1a202c;
+            --text-gray: #4a5568;
+            --bg-light: #f8f9fa;
+            --white: #ffffff;
+            --header-height: 80px;
+            --radius: 12px;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        * { box-sizing: border-box; }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f8f8f8;
-            color: #333;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
             line-height: 1.6;
+            padding-top: var(--header-height);
+            overflow-x: hidden;
         }
 
+        /* =========================================
+           2. NAVBAR (Consistent)
+           ========================================= */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            height: var(--header-height);
+            background-color: var(--primary-color);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .header.scrolled {
+            background-color: rgba(165, 42, 42, 0.95);
+            backdrop-filter: blur(10px);
+            height: 70px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255,255,255,0.95);
+            padding: 5px 15px;
+            border-radius: 50px;
+        }
+
+        .logo-section .logo { height: 40px; width: auto; }
+
+        .nav-links { display: flex; gap: 25px; }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--white);
+            font-weight: 500;
+            font-size: 0.9rem;
+            position: relative;
+            text-transform: uppercase;
+            padding: 5px 0;
+        }
+
+        .nav-links a::after {
+            content: ''; position: absolute; width: 0; height: 2px; bottom: -2px; left: 0; background-color: var(--accent-color); transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+        /* Mobile Menu */
+        .menu-toggle { display: none; flex-direction: column; cursor: pointer; gap: 6px; }
+        .menu-toggle span { width: 28px; height: 3px; background-color: #fff; border-radius: 2px; }
+
+        @media (max-width: 868px) {
+            .menu-toggle { display: flex; z-index: 1001; }
+            .nav-links { position: fixed; top: 0; right: -100%; height: 100vh; width: 75%; background: var(--primary-color); flex-direction: column; justify-content: center; align-items: center; transition: 0.4s; }
+            .nav-links.active { right: 0; }
+        }
+
+        /* =========================================
+           3. PAGE HEADER
+           ========================================= */
+        .page-header {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 80px 20px 100px;
+            text-align: center;
+            color: #fff;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 0;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .breadcrumb { margin-top: 15px; font-size: 0.9rem; opacity: 0.8; }
+
+        /* =========================================
+           4. COMMITTEE GRID LAYOUT
+           ========================================= */
         .container {
-            max-width: 960px; /* Adjusted to fit the content width in your screenshot */
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            max-width: 1200px;
+            margin: -60px auto 60px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
         }
 
-        h1.main-title {
-            color: #8B0000; /* Dark Red, matching the screenshot's title color */
-            font-size: 2em;
-            margin-top: 0;
-            margin-bottom: 30px;
-            font-weight: bold;
-            border-bottom: 3px solid #f0f0f0; /* Thicker light separator line */
-            padding-bottom: 10px;
+        /* Section Title Styling */
+        .role-section-title {
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            margin: 40px 0 20px;
+            padding-left: 15px;
+            border-left: 5px solid var(--secondary-color);
+            font-weight: 700;
         }
 
-        .committee-section {
-            margin-bottom: 35px; /* Space between main sections */
+        /* Cards Grid */
+        .committee-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
         }
 
-        .committee-section h2 {
-            color: #8B0000; /* Dark Red for section titles */
-            font-size: 1.25em;
-            margin-top: 0;
+        /* Full Width Card for Patrons */
+        .full-width { grid-column: 1 / -1; }
+
+        .role-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border-top: 4px solid var(--primary-color);
+            transition: transform 0.3s;
+            opacity: 0; transform: translateY(20px); /* Animation Start */
+        }
+
+        .role-card.visible { opacity: 1; transform: translateY(0); transition: 0.6s ease; }
+        
+        .role-card:hover { transform: translateY(-5px); }
+
+        .role-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+
+        .role-icon {
+            color: var(--secondary-color);
+            font-size: 1.4rem;
+            background: rgba(0, 86, 179, 0.1);
+            padding: 10px;
+            border-radius: 50%;
+        }
+
+        .role-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 0;
+        }
+
+        /* Member List Styling */
+        .member-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .member-item {
+            display: flex;
+            gap: 12px;
             margin-bottom: 15px;
-            font-weight: bold;
-            border-bottom: 1px solid #eee; /* Thin separator line under section title */
-            padding-bottom: 5px;
-            width: fit-content; /* Makes the border only as wide as the text */
+            align-items: flex-start;
         }
 
-        .committee-member {
-            margin-bottom: 8px; /* Space between individual members */
-            padding-left: 15px; /* Indent for all members */
-            font-size: 0.98em;
-            color: #444;
+        .member-bullet {
+            color: var(--accent-color);
+            margin-top: 5px;
+            font-size: 0.8rem;
         }
 
-        .committee-member strong {
-            color: #333; /* For name emphasis */
+        .member-info strong {
+            display: block;
+            color: var(--text-dark);
+            font-size: 1rem;
         }
 
-        /* Styling for the first "Patron" line to mimic the screenshot's spacing */
-        .committee-member.patron-heading {
-            margin-bottom: 2px; /* Less space for "Chief Patron" */
-            padding-left: 0; /* No indent for "Chief Patron" */
-            font-weight: bold;
-            color: #333;
-        }
-         .committee-member.patron-heading span {
-            font-weight: normal; /* Make the description normal weight */
-         }
-
-
-        /* Specific styling for the second "Patron" block to match screenshot */
-        .committee-section.patron-block {
-            margin-top: 30px; /* Extra space above this block */
-        }
-        .committee-section.patron-block h2 {
-            padding-left: 0;
+        .member-info span {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            font-weight: 400;
         }
 
+        /* Special Styling for Chief Patron (Top Card) */
+        .chief-card {
+            background: linear-gradient(to right, #ffffff, #fff9f9);
+            border-top-color: var(--accent-color);
+        }
 
-        /* Responsive adjustments */
+        /* Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         @media (max-width: 768px) {
-            .container {
-                margin: 20px auto;
-                padding: 15px;
-            }
-            h1.main-title {
-                font-size: 1.7em;
-            }
-            .committee-section h2 {
-                font-size: 1.1em;
-            }
-            .committee-member {
-                padding-left: 10px;
-                font-size: 0.9em;
-            }
+            .committee-grid { grid-template-columns: 1fr; }
+            .page-header h1 { font-size: 2rem; }
+            .role-card { padding: 20px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1 class="main-title">Organization Committee</h1>
-
-        <div class="committee-section">
-            <h2 class="patron-heading">Chief Patron :</h2>
-            <div class="committee-member">Hon. Shri S. D. Ganage, <span>President, Marathwada Mitramandal, Pune</span></div>
-            <div class="committee-member">Hon. Shri. K. H. Mungale, <span>Vice President, Marathwada Mitramandal, Pune</span></div>
-            <div class="committee-member">Hon. Shri. K. H. Mungale, <span>Secretary, Marathwada Mitramandal, Pune</span></div>
+    <header class="header" id="navbar">
+        <div class="logo-section">
+            <img class="logo" src="College_logo.png" alt="Logo"> 
+            <img class="logo" src="IEEE_logo.png" alt="IEEE">
         </div>
+        <div class="menu-toggle" id="mobile-menu"><span></span><span></span><span></span></div>
+        <nav class="nav-links" id="nav-links">
+            <a href="index.html" onclick="closeMenu()">Home</a>
+            <a href="about_us.html" onclick="closeMenu()">About</a>
+            <a href="call_for_Papers.html" onclick="closeMenu()">Papers</a>
+            <a href="conference_Tracks.html" onclick="closeMenu()">Tracks</a>
+            <a href="authors.html" onclick="closeMenu()">Authors</a>
+            <a href="organizing_Committee.html" class="active" onclick="closeMenu()">Committee</a>
+            <a href="#contact" onclick="closeMenu()">Contact</a>
+        </nav>
+    </header>
 
-        <div class="committee-section patron-block">
-            <h2>Patron:</h2>
-            <div class="committee-member">Dr. Rupesh V. Ghortake, <span>Principal, MMIT</span></div>
-            <div class="committee-member">Dr. Anjali J. Joshi, <span>Vice Principal, Admin, MMIT</span></div>
-            <div class="committee-member">Dr. Meghna R. Yashwante, <span>Vice Principal, Academic, MMIT</span></div>
-            <div class="committee-member">Dr. Amol R. Dodhade, <span>Chair, IEEE Pune Section</span></div>
-        </div>
-
-        <div class="committee-section">
-            <h2>Program Chairs</h2>
-            <div class="committee-member">Dr. Subhash G. Rathod, <span>Head, Computer Engineering, Marathwada Mitramandal's Institute of Technology, Lohgaon, Pune, India</span></div>
-        </div>
-
-        <div class="committee-section">
-            <h2>Technical Program Chairs</h2>
-            <div class="committee-member">Dr. Monika Dangore, <span>Computer Engineering, Marathwada Mitramandal's Institute of Technology, Lohgaon, Pune, India</span></div>
-        </div>
-
-        <div class="committee-section">
-            <h2>Treasurer Chairs</h2>
-            <div class="committee-member">Dr Mangesh Salunke, <span>Computer Engineering, Marathwada Mitramandal's Institute of Technology, Lohgaon, Pune, India</span></div>
-            <div class="committee-member">Dr Pramod Chandhane, <span>Computer Engineering, Marathwada Mitramandal's Institute of Technology, Lohgaon, Pune, India</span></div>
-        </div>
-
-        <div class="committee-section">
-            <h2>Publicity Chairs</h2>
-            <div class="committee-member">Dr. Sneha Jadhav, <span>Computer Engineering, Marathwada Mitramandal's Institute of Technology, Lohgaon, Pune, India</span></div>
-            <div class="committee-member">Dr. Santosh R. Thorat, <span>Computer Engineering, Marathwada Mitramandal's Institute of Technology, Lohgaon, Pune, India</span></div>
-            <div class="committee-member">Dr. Prachi Katariya, <span>Computer Engineering, Marathwada Mitramandal's Institute of Technology, Lohgaon, Pune, India</span></div>
-        </div>
-
-        <div class="committee-section" style="margin-top: 50px;">
-            <h2>Publication Chair</h2>
-            <div class="committee-member">Dr. Shwetal K. Patil, <span>Computer Engineering, Marathwada Mitramandal's Institute of Technology, Lohgaon, Pune, India</span></div>
-            <div class="committee-member">Dr Swapnil Chaudhari, <span>Computer Engineering, Marathwada Mitramandal's Institute of Technology, Lohgaon, Pune, India</span></div>
-            <div class="committee-member">Mr Dinesh Deore, <span>Computer Engineering, Marathwada Mitramandal's Institute of Technology, Lohgaon, Pune, India</span></div>
-            <div class="committee-member">Mr U B Lohiya, <span>Computer Engineering, Marathwada Mitramandal's Institute of Technology, Lohgaon, Pune, India</span></div>
-            <div class="committee-member">Ms Priyanka Sonawane, <span>Computer Engineering, Marathwada Mitramandal's Institute of Technology, Lohgaon, Pune, India</span></div>
-            <div class="committee-member">Ms Snehal Gadakh, <span>Computer Engineering, Marathwada Mitramandal's Institute of Technology, Lohgaon, Pune, India</span></div>
-        </div>
-
-        <div class="committee-section">
-            <h2>Local Organizers</h2>
-            <div class="committee-member">Mrs Devyani Bonde, <span>Computer Engineering, Marathwada Mitramandal's Institute of Technology, Lohgaon, Pune, India</span></div>
-            <div class="committee-member">Dr Jayshree Shinde, <span>Computer Engineering, Marathwada Mitramandal's Institute of Technology, Lohgaon, Pune, India</span></div>
-            <div class="committee-member">Dr Megha kadam, <span>Computer Engineering, Marathwada Mitramandal's Institute of Technology, Lohgaon, Pune, India</span></div>
-        </div>
-
-        <div class="committee-section">
-            <h2>Steering Committee</h2>
-            <div class="committee-member">Mr Sanjay Agrawal, <span>Computer Engineering, Marathwada Mitramandal's Institute of Technology, Lohgaon, Pune, India</span></div>
-            <div class="committee-member">Ms Tejaswini S Bhoye, <span>Computer Engineering, Marathwada Mitramandal's Institute of Technology, Lohgaon, Pune, India</span></div>
-            <div class="committee-member">Mr Pratiksha Deshmukh, <span>Computer Engineering, Marathwada Mitramandal's Institute of Technology, Lohgaon, Pune, India</span></div>
-            <div class="committee-member">Mr Pawan Kadam, <span>Computer Engineering, Marathwada Mitramandal's Institute of Technology, Lohgaon, Pune, India</span></div>
-            <div class="committee-member">Ms Sheetal Kulkarni, <span>Computer Engineering, Marathwada Mitramandal's Institute of Technology, Lohgaon, Pune, India</span></div>
-        </div>
-
-        <div class="committee-section">
-            <h2>IE Support Committee</h2>
-            <div class="committee-member">Mr Abhay Jadhav</div>
-            <div class="committee-member">Mr Ganesh Shinde</div>
-        </div>
-
+    <div class="page-header">
+        <h1>Organization Committee</h1>
+        <div class="breadcrumb">Home / Committee</div>
     </div>
+
+    <div class="container">
+        
+        <div class="committee-grid">
+            
+            <div class="role-card full-width chief-card observer-item">
+                <div class="role-header">
+                    <i class="fas fa-crown role-icon" style="color:#d4af37; background:rgba(212,175,55,0.1);"></i>
+                    <h2 class="role-title">Chief Patrons</h2>
+                </div>
+                <div class="member-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                    <div class="member-item">
+                        <i class="fas fa-user-tie member-bullet"></i>
+                        <div class="member-info">
+                            <strong>Hon. Shri S. D. Ganage</strong>
+                            <span>President, Marathwada Mitramandal, Pune</span>
+                        </div>
+                    </div>
+                    <div class="member-item">
+                        <i class="fas fa-user-tie member-bullet"></i>
+                        <div class="member-info">
+                            <strong>Hon. Shri. K. H. Mungale</strong>
+                            <span>Vice President, Marathwada Mitramandal, Pune</span>
+                        </div>
+                    </div>
+                    <div class="member-item">
+                        <i class="fas fa-user-tie member-bullet"></i>
+                        <div class="member-info">
+                            <strong>Hon. Shri. A. S. Pawar</strong>
+                            <span>Secretary, Marathwada Mitramandal, Pune</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="role-card full-width observer-item">
+                <div class="role-header">
+                    <i class="fas fa-star role-icon"></i>
+                    <h2 class="role-title">Patrons</h2>
+                </div>
+                <div class="member-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                    <div class="member-item">
+                        <i class="fas fa-check member-bullet"></i>
+                        <div class="member-info"><strong>Dr. Rupesh V. Ghortake</strong><span>Principal, MMIT</span></div>
+                    </div>
+                    <div class="member-item">
+                        <i class="fas fa-check member-bullet"></i>
+                        <div class="member-info"><strong>Dr. Anjali J. Joshi</strong><span>Vice Principal, Admin, MMIT</span></div>
+                    </div>
+                    <div class="member-item">
+                        <i class="fas fa-check member-bullet"></i>
+                        <div class="member-info"><strong>Dr. Meghna R. Yashwante</strong><span>Vice Principal, Academic, MMIT</span></div>
+                    </div>
+                    <div class="member-item">
+                        <i class="fas fa-check member-bullet"></i>
+                        <div class="member-info"><strong>Dr. Amol R. Dodhade</strong><span>Chair, IEEE Pune Section</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="role-card observer-item">
+                <div class="role-header">
+                    <i class="fas fa-tasks role-icon"></i>
+                    <h2 class="role-title">Program Chair</h2>
+                </div>
+                <div class="member-list">
+                    <div class="member-item">
+                        <div class="member-info">
+                            <strong>Dr. Subhash G. Rathod</strong>
+                            <span>Head, Computer Engineering, MMIT, Pune</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="role-card observer-item">
+                <div class="role-header">
+                    <i class="fas fa-cogs role-icon"></i>
+                    <h2 class="role-title">Technical Program Chair</h2>
+                </div>
+                <div class="member-list">
+                    <div class="member-item">
+                        <div class="member-info">
+                            <strong>Dr. Monika Dangore</strong>
+                            <span>Computer Engineering, MMIT, Pune</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="role-card observer-item">
+                <div class="role-header">
+                    <i class="fas fa-wallet role-icon"></i>
+                    <h2 class="role-title">Treasurer Chairs</h2>
+                </div>
+                <div class="member-list">
+                    <div class="member-item">
+                        <div class="member-info"><strong>Dr. Mangesh Salunke</strong><span>Computer Engineering, MMIT</span></div>
+                    </div>
+                    <div class="member-item">
+                        <div class="member-info"><strong>Dr. Pramod Chandhane</strong><span>Computer Engineering, MMIT</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="role-card observer-item">
+                <div class="role-header">
+                    <i class="fas fa-bullhorn role-icon"></i>
+                    <h2 class="role-title">Publicity Chairs</h2>
+                </div>
+                <div class="member-list">
+                    <div class="member-item">
+                        <div class="member-info"><strong>Dr. Sneha Jadhav</strong><span>Computer Engineering, MMIT</span></div>
+                    </div>
+                    <div class="member-item">
+                        <div class="member-info"><strong>Dr. Santosh R. Thorat</strong><span>Computer Engineering, MMIT</span></div>
+                    </div>
+                    <div class="member-item">
+                        <div class="member-info"><strong>Dr. Prachi Katariya</strong><span>Computer Engineering, MMIT</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="role-card full-width observer-item">
+                <div class="role-header">
+                    <i class="fas fa-book-reader role-icon"></i>
+                    <h2 class="role-title">Publication Chairs</h2>
+                </div>
+                <div class="member-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px;">
+                    <div class="member-item"><div class="member-info"><strong>Dr. Shwetal K. Patil</strong><span>Computer Engineering, MMIT</span></div></div>
+                    <div class="member-item"><div class="member-info"><strong>Dr. Swapnil Chaudhari</strong><span>Computer Engineering, MMIT</span></div></div>
+                    <div class="member-item"><div class="member-info"><strong>Mr. Dinesh Deore</strong><span>Computer Engineering, MMIT</span></div></div>
+                    <div class="member-item"><div class="member-info"><strong>Mr. U B Lohiya</strong><span>Computer Engineering, MMIT</span></div></div>
+                    <div class="member-item"><div class="member-info"><strong>Ms. Priyanka Sonawane</strong><span>Computer Engineering, MMIT</span></div></div>
+                    <div class="member-item"><div class="member-info"><strong>Ms. Snehal Gadakh</strong><span>Computer Engineering, MMIT</span></div></div>
+                </div>
+            </div>
+
+            <div class="role-card observer-item">
+                <div class="role-header">
+                    <i class="fas fa-map-marker-alt role-icon"></i>
+                    <h2 class="role-title">Local Organizers</h2>
+                </div>
+                <div class="member-list">
+                    <div class="member-item"><div class="member-info"><strong>Mrs. Devyani Bonde</strong><span>Computer Engineering, MMIT</span></div></div>
+                    <div class="member-item"><div class="member-info"><strong>Dr. Jayshree Shinde</strong><span>Computer Engineering, MMIT</span></div></div>
+                    <div class="member-item"><div class="member-info"><strong>Dr. Megha Kadam</strong><span>Computer Engineering, MMIT</span></div></div>
+                </div>
+            </div>
+
+            <div class="role-card observer-item">
+                <div class="role-header">
+                    <i class="fas fa-compass role-icon"></i>
+                    <h2 class="role-title">Steering Committee</h2>
+                </div>
+                <div class="member-list">
+                    <div class="member-item"><div class="member-info"><strong>Mr. Sanjay Agrawal</strong><span>Computer Engineering, MMIT</span></div></div>
+                    <div class="member-item"><div class="member-info"><strong>Ms. Tejaswini S Bhoye</strong><span>Computer Engineering, MMIT</span></div></div>
+                    <div class="member-item"><div class="member-info"><strong>Ms. Pratiksha Deshmukh</strong><span>Computer Engineering, MMIT</span></div></div>
+                    <div class="member-item"><div class="member-info"><strong>Mr. Pawan Kadam</strong><span>Computer Engineering, MMIT</span></div></div>
+                    <div class="member-item"><div class="member-info"><strong>Ms. Sheetal Kulkarni</strong><span>Computer Engineering, MMIT</span></div></div>
+                </div>
+            </div>
+
+            <div class="role-card observer-item" style="grid-column: 1 / -1;">
+                <div class="role-header">
+                    <i class="fas fa-headset role-icon"></i>
+                    <h2 class="role-title">IE Support Committee</h2>
+                </div>
+                <div class="member-list" style="display:flex; gap: 30px; flex-wrap:wrap;">
+                    <div class="member-item"><div class="member-info"><strong>Mr. Abhay Jadhav</strong></div></div>
+                    <div class="member-item"><div class="member-info"><strong>Mr. Ganesh Shinde</strong></div></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Navbar
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 50); });
+
+        // Menu
+        const menuToggle = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+        menuToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
+        function closeMenu() { navLinks.classList.remove('active'); }
+
+        // Intersection Observer for Animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if(entry.isIntersecting) {
+                    // Stagger the animation slightly
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 50); 
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.05 });
+
+        document.querySelectorAll('.observer-item').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
 
 </body>
 </html>

@@ -3,163 +3,392 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conference Tracks</title>
+    <title>Conference Tracks - ICCMRAI 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
     <style>
+        /* =========================================
+           1. CORE VARIABLES
+           ========================================= */
+        :root {
+            --primary-color: #a52a2a; /* Brown */
+            --primary-light: #fdf2f2;
+            --secondary-color: #0056b3; /* Blue */
+            --accent-color: #ffcc00; /* Yellow */
+            --text-dark: #1a202c;
+            --text-gray: #4a5568;
+            --bg-light: #f8f9fa;
+            --white: #ffffff;
+            --header-height: 80px;
+            --radius: 12px;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        * { box-sizing: border-box; }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f8f8f8;
-            color: #333;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
             line-height: 1.6;
+            padding-top: var(--header-height);
+            overflow-x: hidden;
         }
 
-        .container {
-            max-width: 960px; /* Adjusted to fit content width */
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        /* =========================================
+           2. NAVBAR (Consistent)
+           ========================================= */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            height: var(--header-height);
+            background-color: var(--primary-color);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        h1 {
-            color: #8B0000; /* Dark Red, matching the screenshot's title color */
-            font-size: 2em;
-            margin-top: 0;
-            margin-bottom: 30px;
-            font-weight: bold;
-            border-bottom: 2px solid #eee; /* Light separator line */
-            padding-bottom: 10px;
+        .header.scrolled {
+            background-color: rgba(165, 42, 42, 0.95);
+            backdrop-filter: blur(10px);
+            height: 70px;
         }
 
-        .track-category {
-            margin-bottom: 40px;
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255,255,255,0.95);
+            padding: 5px 15px;
+            border-radius: 50px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
-        .track-category h2 {
-            color: #333;
-            font-size: 1.4em;
-            margin-top: 0;
-            margin-bottom: 20px;
-            font-weight: bold;
-            padding-left: 20px; /* Indent for the numbered heading */
-            position: relative;
-        }
+        .logo-section .logo { height: 40px; width: auto; }
 
-        .track-category h2::before {
-            content: ''; /* Placeholder for the red triangle bullet */
-            position: absolute;
-            left: 0;
-            top: 0.4em; /* Adjust to vertically align with text */
-            width: 0;
-            height: 0;
-            border-top: 6px solid transparent;
-            border-bottom: 6px solid transparent;
-            border-left: 8px solid #8B0000; /* Dark Red triangle */
-        }
+        .nav-links { display: flex; gap: 25px; }
 
-        .track-items {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Two columns, responsive */
-            gap: 15px; /* Space between track items */
-        }
-
-        .track-item {
-            background-color: #f0f0f0; /* Light grey background for each item */
-            padding: 15px 20px;
-            border-radius: 5px;
-            font-size: 1em;
-            color: #555;
+        .nav-links a {
+            text-decoration: none;
+            color: var(--white);
             font-weight: 500;
-            text-align: left;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+            font-size: 0.9rem;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 5px 0;
         }
 
-        .track-item:hover {
-            background-color: #e0e0e0;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--accent-color);
+            transition: width 0.3s;
         }
 
-        /* Adjust grid for smaller screens */
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+        /* Mobile Menu */
+        .menu-toggle { display: none; flex-direction: column; cursor: pointer; gap: 6px; }
+        .menu-toggle span { width: 28px; height: 3px; background-color: #fff; border-radius: 2px; }
+
+        @media (max-width: 868px) {
+            .menu-toggle { display: flex; z-index: 1001; }
+            .nav-links {
+                position: fixed; top: 0; right: -100%; height: 100vh; width: 75%;
+                background: var(--primary-color); flex-direction: column;
+                justify-content: center; align-items: center; transition: 0.4s;
+            }
+            .nav-links.active { right: 0; }
+        }
+
+        /* =========================================
+           3. PAGE HEADER
+           ========================================= */
+        .page-header {
+            /* Tech Background */
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 80px 20px 120px; /* Extra bottom padding for overlap */
+            text-align: center;
+            color: #fff;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 0;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .breadcrumb {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* =========================================
+           4. TRACKS GRID LAYOUT
+           ========================================= */
+        .container {
+            max-width: 1200px;
+            margin: -80px auto 60px; /* Overlap header */
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .tracks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .track-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border-top: 4px solid var(--secondary-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px); /* Initial state for animation */
+        }
+
+        .track-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .track-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.1);
+        }
+
+        /* Card Header */
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+
+        .track-icon {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            background: var(--primary-light);
+            padding: 12px;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .track-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 0;
+        }
+
+        /* Track List Items (Pills) */
+        .track-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .track-pill {
+            background: #f1f5f9;
+            color: var(--text-gray);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid transparent;
+            transition: 0.3s;
+            cursor: default;
+        }
+
+        .track-pill:hover {
+            background: var(--white);
+            border-color: var(--secondary-color);
+            color: var(--secondary-color);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        /* Animation Keyframes */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         @media (max-width: 768px) {
-            .track-items {
-                grid-template-columns: 1fr; /* Single column on small screens */
-            }
-            .container {
-                margin: 20px auto;
-                padding: 15px;
-            }
+            .tracks-grid { grid-template-columns: 1fr; }
+            .page-header h1 { font-size: 2rem; }
+            .track-card { padding: 20px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <header class="header" id="navbar">
+        <div class="logo-section">
+            <img class="logo" src="College_logo.png" alt="Logo"> 
+            <img class="logo" src="IEEE_logo.png" alt="IEEE">
+        </div>
+
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <nav class="nav-links" id="nav-links">
+            <a href="index.html" onclick="closeMenu()">Home</a>
+            <a href="about_us.html" onclick="closeMenu()">About</a>
+            <a href="call_for_Papers.html" onclick="closeMenu()">Papers</a>
+            <a href="conference_Tracks.html" class="active" onclick="closeMenu()">Tracks</a>
+            <a href="authors.html" onclick="closeMenu()">Authors</a>
+            <a href="organizing_Committee.html" onclick="closeMenu()">Committee</a>
+            <a href="#contact" onclick="closeMenu()">Contact</a>
+        </nav>
+    </header>
+
+    <div class="page-header">
         <h1>Conference Tracks</h1>
-
-        <div class="track-category">
-            <h2>1. Computer Science and Engineering:</h2>
-            <div class="track-items">
-                <div class="track-item">Advanced Algorithms and Data Structures</div>
-                <div class="track-item">Cloud Computing and Edge Computing</div>
-                <div class="track-item">Cybersecurity and Cryptography</div>
-                <div class="track-item">Big Data Analytics and Data Science</div>
-                <div class="track-item">Human-Computer Interaction</div>
-                <div class="track-item">Software Engineering and Development</div>
-            </div>
-        </div>
-
-        <div class="track-category">
-            <h2>2. Mechatronics:</h2>
-            <div class="track-items">
-                <div class="track-item">Intelligent Mechatronic Systems</div>
-                <div class="track-item">Sensors, Actuators, and Embedded Systems</div>
-                <div class="track-item">Control Systems and Automation</div>
-                <div class="track-item">Real-Time Systems and Applications</div>
-                <div class="track-item">Microelectromechanical Systems (MEMS)</div>
-                <div class="track-item">Robotics-integrated Mechatronics</div>
-            </div>
-        </div>
-
-        <div class="track-category">
-            <h2>3. Robotics:</h2>
-            <div class="track-items">
-                <div class="track-item">Autonomous and Mobile Robotics</div>
-                <div class="track-item">Swarm Robotics and Multi-Agent Systems</div>
-                <div class="track-item">Robot Vision and Perception</div>
-                <div class="track-item">Humanoid Robots and Social Robotics</div>
-                <div class="track-item">Industrial and Service Robotics</div>
-                <div class="track-item">Robotics in Healthcare and Rehabilitation</div>
-            </div>
-        </div>
-
-        <div class="track-category">
-            <h2>4. Artificial Intelligence (AI):</h2>
-            <div class="track-items">
-                <div class="track-item">Machine Learning and Deep Learning</div>
-                <div class="track-item">Natural Language Processing (NLP)</div>
-                <div class="track-item">Computer Vision and Image Processing</div>
-                <div class="track-item">AI in IoT and Smart Devices</div>
-                <div class="track-item">Reinforcement Learning and AI-driven Control</div>
-                <div class="track-item">Ethical and Explainable AI</div>
-            </div>
-        </div>
-
-        <div class="track-category">
-            <h2>5. Interdisciplinary and Emerging Areas:</h2>
-            <div class="track-items">
-                <div class="track-item">Cyber-Physical Systems</div>
-                <div class="track-item">Smart Cities and Intelligent Transportation Systems</div>
-                <div class="track-item">AI and Robotics in Industry 5.0</div>
-                <div class="track-item">Bio-Inspired Computing and Soft Robotics</div>
-                <div class="track-item">Virtual Reality (VR), Augmented Reality (AR), and Mixed Reality (MR)</div>
-                <div class="track-item">Sustainable and Green Technologies</div>
-            </div>
-        </div>
-
+        <div class="breadcrumb">Home / Conference Tracks</div>
     </div>
+
+    <div class="container">
+        <div class="tracks-grid">
+
+            <div class="track-card">
+                <div class="card-header">
+                    <div class="track-icon"><i class="fas fa-laptop-code"></i></div>
+                    <h2 class="track-title">Computer Science & Engineering</h2>
+                </div>
+                <div class="track-list">
+                    <div class="track-pill">Advanced Algorithms</div>
+                    <div class="track-pill">Cloud & Edge Computing</div>
+                    <div class="track-pill">Cybersecurity</div>
+                    <div class="track-pill">Big Data Analytics</div>
+                    <div class="track-pill">Human-Computer Interaction</div>
+                    <div class="track-pill">Software Engineering</div>
+                </div>
+            </div>
+
+            <div class="track-card">
+                <div class="card-header">
+                    <div class="track-icon"><i class="fas fa-cogs"></i></div>
+                    <h2 class="track-title">Mechatronics</h2>
+                </div>
+                <div class="track-list">
+                    <div class="track-pill">Intelligent Systems</div>
+                    <div class="track-pill">Sensors & Actuators</div>
+                    <div class="track-pill">Control Systems</div>
+                    <div class="track-pill">Real-Time Applications</div>
+                    <div class="track-pill">MEMS</div>
+                    <div class="track-pill">Robotics Integration</div>
+                </div>
+            </div>
+
+            <div class="track-card">
+                <div class="card-header">
+                    <div class="track-icon"><i class="fas fa-robot"></i></div>
+                    <h2 class="track-title">Robotics</h2>
+                </div>
+                <div class="track-list">
+                    <div class="track-pill">Autonomous Robots</div>
+                    <div class="track-pill">Swarm Robotics</div>
+                    <div class="track-pill">Robot Vision</div>
+                    <div class="track-pill">Humanoid Robots</div>
+                    <div class="track-pill">Industrial Robotics</div>
+                    <div class="track-pill">Healthcare Robotics</div>
+                </div>
+            </div>
+
+            <div class="track-card">
+                <div class="card-header">
+                    <div class="track-icon"><i class="fas fa-brain"></i></div>
+                    <h2 class="track-title">Artificial Intelligence</h2>
+                </div>
+                <div class="track-list">
+                    <div class="track-pill">Machine Learning</div>
+                    <div class="track-pill">NLP</div>
+                    <div class="track-pill">Computer Vision</div>
+                    <div class="track-pill">AI in IoT</div>
+                    <div class="track-pill">Reinforcement Learning</div>
+                    <div class="track-pill">Ethical AI</div>
+                </div>
+            </div>
+
+            <div class="track-card" style="grid-column: 1 / -1;"> <div class="card-header">
+                    <div class="track-icon"><i class="fas fa-project-diagram"></i></div>
+                    <h2 class="track-title">Interdisciplinary & Emerging Areas</h2>
+                </div>
+                <div class="track-list">
+                    <div class="track-pill">Cyber-Physical Systems</div>
+                    <div class="track-pill">Smart Cities</div>
+                    <div class="track-pill">Industry 5.0</div>
+                    <div class="track-pill">Bio-Inspired Computing</div>
+                    <div class="track-pill">VR / AR / MR</div>
+                    <div class="track-pill">Green Technologies</div>
+                    <div class="track-pill">Intelligent Transportation</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Navbar
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Mobile Menu
+        const menuToggle = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+        menuToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
+        function closeMenu() { navLinks.classList.remove('active'); }
+
+        // Animation Observer (Staggered Effect)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if(entry.isIntersecting) {
+                    // Add a slight delay based on index for a "staggered" load
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 100); 
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.track-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
 
 </body>
 </html>

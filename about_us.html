@@ -4,182 +4,494 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - MMIT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
+        /* =========================================
+           1. CORE VARIABLES & RESET
+           ========================================= */
+        :root {
+            --primary-color: #a52a2a; /* Brown */
+            --primary-light: #d68c8c;
+            --secondary-color: #0056b3; /* IEEE Blue */
+            --accent-color: #ffcc00; /* Yellow */
+            --text-dark: #2d3748;
+            --text-gray: #718096;
+            --bg-light: #f8f9fa;
+            --white: #ffffff;
+            --header-height: 80px;
+            --shadow-sm: 0 4px 6px rgba(0,0,0,0.05);
+            --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+            --radius: 12px;
+        }
+
+        * { box-sizing: border-box; }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f8f8f8;
-            color: #333;
-            line-height: 1.6;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.7;
+            padding-top: var(--header-height); /* Space for fixed nav */
+            overflow-x: hidden;
         }
 
-        /* Top Navigation/Header (Mimicking your screenshot) */
-        .top-nav {
-            background-color: #fff;
-            padding: 10px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            border-bottom: 1px solid #eee;
+        /* Smooth Scroll */
+        html { scroll-behavior: smooth; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: var(--primary-color); border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: #8a2323; }
+
+        /* =========================================
+           2. NAVBAR STYLES (PRESERVED)
+           ========================================= */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            height: var(--header-height);
+            background-color: var(--primary-color);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        .top-nav-content {
-            max-width: 1200px;
-            margin: 0 auto;
+        .header.scrolled {
+            background-color: rgba(165, 42, 42, 0.95);
+            backdrop-filter: blur(10px); /* Modern frosted glass effect */
+            height: 70px;
+        }
+
+        .logo-section {
             display: flex;
             align-items: center;
-            padding: 0 20px;
+            gap: 15px;
+            background: rgba(255,255,255,0.95);
+            padding: 6px 18px;
+            border-radius: 50px; /* Pill shape */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
-        .top-nav-content .logo-text {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #007bff; /* Example color, adjust as needed */
-            margin-right: auto; /* Pushes other items to the right */
-        }
+        .logo-section .logo { height: 40px; width: auto; object-fit: contain; }
 
-        .top-nav-content .breadcrumb a {
-            color: #555;
+        .nav-links { display: flex; gap: 30px; }
+
+        .nav-links a {
             text-decoration: none;
-            font-size: 0.9em;
-            margin-left: 10px;
+            color: var(--white);
+            font-weight: 500;
+            font-size: 0.9rem;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            padding: 5px 0;
+            transition: color 0.3s;
         }
 
-        .top-nav-content .breadcrumb a:hover {
-            text-decoration: underline;
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--accent-color);
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .top-nav-content .breadcrumb span {
-            color: #999;
-            font-size: 0.9em;
-            margin-left: 5px;
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+        .menu-toggle { display: none; flex-direction: column; cursor: pointer; gap: 6px; }
+        .menu-toggle span { width: 28px; height: 3px; background-color: #fff; transition: 0.3s; border-radius: 2px; }
+
+        /* Navbar Media Queries */
+        @media (max-width: 868px) {
+            .menu-toggle { display: flex; z-index: 1001; }
+            .nav-links {
+                position: fixed;
+                top: 0; right: -100%;
+                height: 100vh; width: 75%;
+                background: linear-gradient(135deg, var(--primary-color), #631111);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+                box-shadow: -10px 0 30px rgba(0,0,0,0.3);
+            }
+            .nav-links.active { right: 0; }
+            .nav-links a { font-size: 1.3rem; margin: 20px 0; }
         }
 
+        /* =========================================
+           3. MODERN HERO & BREADCRUMBS
+           ========================================= */
+        
+        /* Modern Breadcrumb */
+        .breadcrumb-bar {
+            background-color: #fff;
+            padding: 15px 5%;
+            border-bottom: 1px solid #eaeaea;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .breadcrumb { font-size: 0.85rem; color: var(--text-gray); }
+        .breadcrumb a { color: var(--text-dark); text-decoration: none; font-weight: 500; transition: color 0.2s; }
+        .breadcrumb a:hover { color: var(--primary-color); }
+        .breadcrumb span { margin: 0 8px; color: #ccc; }
 
-        /* Main Page Title */
-        .page-title-banner {
-            background-color: #f0f0f0; /* Light grey background */
-            padding: 40px 0;
+        /* Animated Hero Section */
+        .hero-banner {
+            position: relative;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1562774053-701939374585?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80'); /* Replace with your campus image */
+            background-size: cover;
+            background-attachment: fixed; /* Parallax Effect */
+            background-position: center;
+            padding: 100px 20px;
             text-align: center;
-            border-bottom: 1px solid #ddd;
+            color: white;
+            overflow: hidden;
         }
-        .page-title-banner h1 {
-            color: #333;
-            font-size: 2.5em;
+
+        .hero-banner h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
             margin: 0;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: fadeInDown 1s ease-out;
         }
 
+        .hero-decor-line {
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent-color);
+            margin: 20px auto 0;
+            border-radius: 2px;
+            animation: expandWidth 1s ease-out forwards;
+        }
 
-        /* Main Content Area */
-        .container {
+        /* =========================================
+           4. CONTENT LAYOUT (Grid & Animation)
+           ========================================= */
+        
+        .main-container {
             max-width: 1200px;
-            margin: 30px auto;
-            padding: 20px;
-            display: flex;
-            flex-wrap: wrap; /* Allows items to wrap on smaller screens */
-            gap: 40px; /* Space between flex items */
+            margin: 60px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 60px;
+            align-items: start;
         }
 
-        .image-gallery {
-            flex: 1; /* Takes available space */
-            min-width: 300px; /* Ensures it doesn't get too small */
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+        /* Image Collage Effect */
+        .image-collage {
+            position: relative;
+            height: 500px;
+            opacity: 0; /* Initial state for animation */
+            transform: translateX(-50px);
+            transition: all 1s ease;
         }
 
-        .image-gallery img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            object-fit: cover; /* Ensures images cover their area well */
+        .image-collage img {
+            position: absolute;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            border: 5px solid #fff;
+            transition: transform 0.4s ease, z-index 0.4s;
+            object-fit: cover;
         }
 
-        .content-area {
-            flex: 2; /* Takes more space than the image gallery */
-            min-width: 400px; /* Ensures it doesn't get too small */
+        .img-main {
+            width: 85%;
+            height: 350px;
+            top: 0;
+            left: 0;
+            z-index: 1;
         }
 
-        .content-area h2 {
-            color: #0056b3; /* A blue that stands out */
-            font-size: 1.8em;
-            margin-top: 0;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
+        .img-secondary {
+            width: 65%;
+            height: 250px;
+            bottom: 20px;
+            right: 0;
+            z-index: 2;
         }
 
-        .content-area p {
-            margin-bottom: 1em;
-            font-size: 1.05em;
-            color: #555;
+        .image-collage:hover .img-secondary {
+            transform: scale(1.05) translate(-10px, -10px);
+            z-index: 3;
+        }
+
+        /* Text Content Styles */
+        .content-wrapper {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease 0.2s; /* 0.2s delay */
+        }
+
+        .section-tag {
+            color: var(--primary-color);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            color: var(--text-dark);
+            margin: 0 0 25px 0;
+            line-height: 1.2;
+            font-weight: 700;
+        }
+
+        .text-body {
+            color: var(--text-gray);
+            font-size: 1.05rem;
+            margin-bottom: 25px;
             text-align: justify;
         }
 
-        .content-area strong {
-            color: #333;
+        .highlight-box {
+            background-color: #fff;
+            border-left: 4px solid var(--secondary-color);
+            padding: 15px 20px;
+            margin: 20px 0;
+            background: linear-gradient(to right, rgba(0,86,179,0.05), transparent);
+            border-radius: 0 var(--radius) var(--radius) 0;
         }
 
-        /* Responsive Adjustments */
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column; /* Stack items vertically on small screens */
-                gap: 20px;
-            }
-            .image-gallery, .content-area {
-                min-width: unset; /* Remove min-width to allow full width */
-                width: 100%;
-            }
-            .page-title-banner h1 {
-                font-size: 2em;
-            }
-            .top-nav-content {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-            .top-nav-content .breadcrumb {
-                margin-left: 0;
-            }
+        /* Stats / Proximity Cards Grid */
+        .proximity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
         }
+
+        .prox-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #eee;
+        }
+
+        .prox-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-color);
+        }
+
+        .prox-icon {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .prox-dist {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-dark);
+        }
+
+        .prox-label {
+            font-size: 0.8rem;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        /* =========================================
+           5. ANIMATION CLASSES & KEYFRAMES
+           ========================================= */
+        
+        /* Class added by JS to trigger animation */
+        .animate-active {
+            opacity: 1 !important;
+            transform: translate(0, 0) !important;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 80px; }
+        }
+
+        /* Responsive Content */
+        @media (max-width: 900px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .image-collage {
+                height: 400px;
+                transform: translateX(0);
+                opacity: 1; /* Disable complex scroll anim on mobile for performance */
+                margin-bottom: 20px;
+            }
+            .img-main { width: 90%; height: 300px; }
+            .img-secondary { width: 50%; height: 200px; }
+            .content-wrapper { opacity: 1; transform: none; }
+            .hero-banner h1 { font-size: 2.2rem; }
+        }
+
+        @media (max-width: 480px) {
+            .img-secondary { display: none; } /* Hide secondary img on very small screens */
+            .img-main { width: 100%; position: relative; }
+            .image-collage { height: auto; }
+            .proximity-grid { grid-template-columns: 1fr; }
+            .prox-card { display: flex; align-items: center; justify-content: space-between; text-align: left; }
+            .prox-icon { margin-bottom: 0; }
+        }
+
     </style>
 </head>
 <body>
 
-    <div class="top-nav">
-        <div class="top-nav-content">
-            <div class="logo-text">About Us</div>
-            <div class="breadcrumb">
-                <a href="/index.html">Home</a>
-                <span>&gt;</span>
-                <a href="#">About Us</a>
-                <span>&gt;</span>
-                <span>About MMIT</span>
+    <header class="header" id="navbar">
+        <div class="logo-section">
+            <img class="logo" src="College_logo.png" alt="College Logo"> 
+            <img class="logo" src="IEEE_logo.png" alt="IEEE Logo">
+        </div>
+
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <nav class="nav-links" id="nav-links">
+            <a href="index.html" onclick="closeMenu()">Home</a>
+            <a href="about_us.html" class="active" onclick="closeMenu()">About</a>
+            <a href="call_for_Papers.html" onclick="closeMenu()">Papers</a>
+            <a href="conference_Tracks.html" onclick="closeMenu()">Tracks</a>
+            <a href="authors.html" onclick="closeMenu()">Authors</a>
+            <a href="organizing_Committee.html" onclick="closeMenu()">Committee</a>
+            <a href="#contact" onclick="closeMenu()">Contact</a>
+        </nav>
+    </header>
+
+    <div class="breadcrumb-bar">
+        <div style="font-weight:700; font-size:1.2rem; color:var(--primary-color);">About Us</div>
+        <div class="breadcrumb">
+            <a href="index.html">Home</a>
+            <span>/</span>
+            About MMIT
+        </div>
+    </div>
+
+    <div class="hero-banner">
+        <h1>Legacy of Excellence</h1>
+        <div class="hero-decor-line"></div>
+    </div>
+
+    <div class="main-container">
+        
+        <div class="image-collage" id="anim-img">
+            <img src="About_us_image1.png" alt="MMIT Campus" class="img-main">
+            <img src="About_us_image2.png" alt="Students" class="img-secondary">
+        </div>
+
+        <div class="content-wrapper" id="anim-text">
+            <span class="section-tag">About The Institution</span>
+            <h2 class="section-title">Empowering Future <br><span style="color:var(--primary-color);">Innovators</span></h2>
+            
+            <p class="text-body">
+                The <strong>Marathwada Mitramandal’s Institute of Technology (MMIT)</strong>, Lohgaon was established in <strong style="color:var(--text-dark)">2008</strong>. The Institution is affiliated to Savitribai Phule Pune University and approved by AICTE, New Delhi. 
+            </p>
+
+            <div class="highlight-box">
+                <i class="fas fa-award" style="color:var(--secondary-color); margin-right:10px;"></i>
+                The Institute is proudly accredited with an <strong>“A” Grade by NAAC</strong>.
+            </div>
+
+            <p class="text-body">
+                Our vision is to impart quality education for professional excellence and holistic development. We strive to address the expectations of every student through continual improvement and teamwork.
+            </p>
+
+            <h3 style="font-size:1.2rem; margin-top:30px; border-bottom:2px solid #eee; padding-bottom:10px;">Strategic Location</h3>
+            <div class="proximity-grid">
+                
+                <div class="prox-card">
+                    <i class="fas fa-plane prox-icon"></i>
+                    <span class="prox-dist">7 km</span>
+                    <span class="prox-label">Airport</span>
+                </div>
+
+                <div class="prox-card">
+                    <i class="fas fa-train prox-icon"></i>
+                    <span class="prox-dist">14 km</span>
+                    <span class="prox-label">Railway Stn</span>
+                </div>
+
+                <div class="prox-card">
+                    <i class="fas fa-bus prox-icon"></i>
+                    <span class="prox-dist">17 km</span>
+                    <span class="prox-label">Bus Stand</span>
+                </div>
+
             </div>
         </div>
     </div>
 
-    <div class="page-title-banner">
-        <h1>ABOUT MMIT</h1>
-    </div>
+    <script>
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
 
-    <div class="container">
-        <div class="image-gallery">
-            <img src="/About_us_image1.png" alt="MMIT Campus View 1">
-            <img src="/About_us_image2.png" alt="MMIT Campus View 2">
-        </div>
+        // Mobile Menu
+        const menuToggle = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+        menuToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
+        function closeMenu() { navLinks.classList.remove('active'); }
 
-        <div class="content-area">
-            <h2>About The Institution</h2>
-            <p>The Marathwada Mitramandal’s Institute of Technology, Lohgaon was established in <strong>2008</strong>. The Institution is affiliated to Savitribai Phule Pune University, Pune and is approved by AICTE, New Delhi, recognized by DTE, Government of Maharashtra. The Institute is accredited with <strong>“A” Grade by NAAC</strong>.</p>
+        // Scroll Animation Observer (The Modern UX Part)
+        const observerOptions = {
+            threshold: 0.2 // Trigger when 20% of element is visible
+        };
 
-            <p>At the Institution, efforts are directed to accommodate and address expectations of every student in line with the vision of the trust of imparting quality education for professional excellence and holistic development through continual improvement and team work.</p>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-active');
+                    observer.unobserve(entry.target); // Only animate once
+                }
+            });
+        }, observerOptions);
 
-            <h2>The Institution’s Location</h2>
-            <p>The Institution is located in the vicinity of the North-East of the Pune city (Maharashtra state) at latitude and longitude of <strong>18.690</strong> and <strong>73.940</strong> respectively. It is located at a distance of <strong>7 kms from Pune Lohgaon Airport</strong>, <strong>14 kms from Pune Railway Station</strong> and <strong>17 kms from Central Bus Stand (Shivaji Nagar)</strong>. The postal address of the institution is – Survey No. 35, Plot no. 5/76, Vadgaon Shinde Road, Lohgaon, Pune – 411047.</p>
-        </div>
-    </div>
+        // Target elements to animate
+        const imgSection = document.getElementById('anim-img');
+        const textSection = document.getElementById('anim-text');
+        
+        if(imgSection) observer.observe(imgSection);
+        if(textSection) observer.observe(textSection);
+    </script>
 
 </body>
 </html>
